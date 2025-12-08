@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EQUIS SAR Workspace</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="workspace-container">
+    <header class="workspace-header">
+      <div class="header-content">
+        <h1>EQUIS SAR Workspace</h1>
+        <div class="header-actions">
+          <a href="/" class="btn-secondary">Upload Another</a>
+        </div>
+      </div>
+      <div class="workspace-info">
+        <div class="info-item">
+          <strong>Workspace ID:</strong> 
+          <span id="workspaceId" class="workspace-id"></span>
+          <button id="copyIdBtn" class="btn-copy" title="Copy workspace ID">📋</button>
+        </div>
+        <div class="info-item">
+          <strong>Document:</strong> <span id="documentName"></span>
+        </div>
+        <div class="info-item">
+          <strong>Created:</strong> <span id="createdAt"></span>
+        </div>
+      </div>
+      <div class="privacy-warning-compact">
+        ⚠️ <strong>Public Workspace:</strong> Anyone with this workspace ID can access this content. Do not use for sensitive data.
+      </div>
+    </header>
+
+    <div class="workspace-layout">
+      <aside class="sidebar">
+        <h2>Document Sections</h2>
+        <div id="sectionsList" class="sections-list">
+          <!-- Sections will be loaded here -->
+        </div>
+      </aside>
+
+      <main class="editor-area">
+        <div id="editorContainer" class="editor-container">
+          <div class="editor-placeholder">
+            <p>Select a section from the sidebar to view and edit</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    let currentWorkspace = null;
+    let currentSectionId = null;
+
+    // Get workspace ID from URL
+    const workspaceId = window.location.pathname.split('/').pop();
+
+    // Load workspace on page load
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadWorkspace();
+    });
+
+    async function loadWorkspace() {
+      try {
+        const response = await fetch(`/api/workspace/${workspaceId}`);
+        if (!response.ok) {
+          throw new Error('Workspace not found');
+        }
+
+        currentWorkspace = await response.json();
+        
+        // Display workspace info
+        document.getElementById('workspaceId').textContent = currentWorkspace.id;
+        document.getElementById('documentName').textContent = currentWorkspace.filename;
+        document.getElementById('createdAt').textContent = new Date(currentWorkspace.createdAt).toLocaleString();
+
+        // Render sections list
+        renderSectionsList();
+
+        // Load first section by default
+        if (currentWorkspace.sections.length > 0) {
+          loadSection(currentWorkspace.sections[0].id);
+        }
+      } catch (error) {
+        alert('Failed to load workspace: ' + error.message);
+        window.location.href = '/';
+      }
+    }
+
+    function renderSectionsList() {
+      const sectionsList = document.getElementById('sectionsList');
+      sectionsList.innerHTML = '';
+
+      currentWorkspace.sections.forEach(section => {
+        const sectionItem = document.createElement('div');
+        sectionItem.className = 'section-item';
+        sectionItem.dataset.sectionId = section.id;
+        
+        const sectionTitle = document.createElement('div');
+        sectionTitle.className = 'section-title';
+        sectionTitle.textContent = section.title || `Section ${section.id}`;
+        
+        sectionItem.appendChild(sectionTitle);
+        sectionItem.addEventListener('click', () => loadSection(section.id));
+        
+        sectionsList.appendChild(sectionItem);
+      });
+    }
+
+    function loadSection(sectionId) {
+      const section = currentWorkspace.sections.find(s => s.id === sectionId);
+      if (!section) return;
+
+      currentSectionId = sectionId;
+
+      // Highlight active section
+      document.querySelectorAll('.section-item').forEach(item => {
+        if (parseInt(item.dataset.sectionId) === sectionId) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Render editor
+      const editorContainer = document.getElementById('editorContainer');
+      editorContainer.innerHTML = `
+        <div class="editor-header">
+          <input 
+            type="text" 
+            id="sectionTitle" 
+            class="section-title-input" 
+            value="${escapeHtml(section.title)}"
+            placeholder="Section Title"
+          >
+        </div>
+        <div class="editor-content">
+          <textarea 
+            id="sectionContent" 
+            class="section-content-textarea"
+            placeholder="Section content..."
+          >${escapeHtml(section.content)}</textarea>
+        </div>
+        <div class="editor-actions">
+          <button id="saveBtn" class="btn-primary">Save Changes</button>
+          <span id="saveStatus" class="save-status"></span>
+        </div>
+      `;
+
+      // Add save handler
+      document.getElementById('saveBtn').addEventListener('click', saveSection);
+    }
+
+    async function saveSection() {
+      const title = document.getElementById('sectionTitle').value;
+      const content = document.getElementById('sectionContent').value;
+      const saveBtn = document.getElementById('saveBtn');
+      const saveStatus = document.getElementById('saveStatus');
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving...';
+      saveStatus.textContent = '';
+
+      try {
+        const response = await fetch('/api/save-section', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            workspaceId: currentWorkspace.id,
+            sectionId: currentSectionId,
+            title: title,
+            content: content
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Update local workspace data
+          const section = currentWorkspace.sections.find(s => s.id === currentSectionId);
+          if (section) {
+            section.title = title;
+            section.content = content;
+          }
+
+          // Update sidebar
+          renderSectionsList();
+          
+          // Re-highlight active section
+          document.querySelectorAll('.section-item').forEach(item => {
+            if (parseInt(item.dataset.sectionId) === currentSectionId) {
+              item.classList.add('active');
+            }
+          });
+
+          saveStatus.textContent = '✓ Saved successfully';
+          saveStatus.className = 'save-status success';
+        } else {
+          saveStatus.textContent = '✗ Save failed: ' + (data.error || 'Unknown error');
+          saveStatus.className = 'save-status error';
+        }
+      } catch (error) {
+        saveStatus.textContent = '✗ Save failed: ' + error.message;
+        saveStatus.className = 'save-status error';
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Changes';
+      }
+    }
+
+    // Copy workspace ID to clipboard
+    document.getElementById('copyIdBtn').addEventListener('click', () => {
+      const workspaceId = document.getElementById('workspaceId').textContent;
+      navigator.clipboard.writeText(workspaceId).then(() => {
+        alert('Workspace ID copied to clipboard!');
+      });
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
