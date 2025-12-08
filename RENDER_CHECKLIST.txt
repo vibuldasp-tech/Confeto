@@ -1,0 +1,118 @@
+╔════════════════════════════════════════════════════════════════╗
+║         EQUIS SAR MVP - RENDER DEPLOYMENT CHECKLIST            ║
+╚════════════════════════════════════════════════════════════════╝
+
+Follow these steps in order:
+
+STEP 1: PUSH TO GITHUB
+─────────────────────────────────────────────────────────────────
+[ ] Go to https://github.com/new
+[ ] Create repository named: equis-sar-mvp
+[ ] Don't add README or .gitignore (we have them)
+[ ] Click "Create repository"
+[ ] Run these commands in /workspace:
+
+    git init
+    git add .
+    git commit -m "Deploy to Render"
+    git branch -M main
+    git remote add origin https://github.com/YOUR_USERNAME/equis-sar-mvp.git
+    git push -u origin main
+
+    (Replace YOUR_USERNAME with your GitHub username)
+
+STEP 2: CREATE RENDER ACCOUNT
+─────────────────────────────────────────────────────────────────
+[ ] Go to https://render.com
+[ ] Click "Get Started" or "Sign Up"
+[ ] Sign up with GitHub (easiest) or email
+[ ] Verify email if needed
+
+STEP 3: DEPLOY WEB SERVICE
+─────────────────────────────────────────────────────────────────
+[ ] Click "New +" button (top right)
+[ ] Select "Web Service"
+[ ] Click "Connect GitHub" (if first time)
+[ ] Find and select your equis-sar-mvp repository
+[ ] Click "Connect"
+
+STEP 4: CONFIGURE SERVICE
+─────────────────────────────────────────────────────────────────
+Fill in these settings:
+
+[ ] Name: equis-sar-mvp
+[ ] Region: Oregon (or closest to you)
+[ ] Branch: main
+[ ] Environment: Node
+[ ] Build Command: npm install
+[ ] Start Command: node server.js
+[ ] Instance Type:
+    - Free (for testing - sleeps after 15 min)
+    - Starter ($7/mo - always on, recommended)
+
+[ ] Click "Create Web Service"
+
+STEP 5: WAIT FOR DEPLOYMENT
+─────────────────────────────────────────────────────────────────
+[ ] Watch the logs as it builds (2-5 minutes)
+[ ] Look for: "EQUIS SAR MVP server running on..."
+[ ] Note your URL: https://equis-sar-mvp-xxxx.onrender.com
+
+STEP 6: TEST YOUR APP
+─────────────────────────────────────────────────────────────────
+[ ] Click your Render URL
+[ ] Upload Test_SAR_Document.docx
+[ ] Verify sections are detected
+[ ] Edit a section and save
+[ ] Confirm it works!
+
+OPTIONAL STEPS
+─────────────────────────────────────────────────────────────────
+[ ] Add persistent disk (Starter plan only, $1/GB/mo)
+    → Service dashboard → Disks → Add Disk
+    → Mount path: /workspace/uploads
+    
+[ ] Add custom domain
+    → Service dashboard → Settings → Custom Domains
+    → Buy domain from Namecheap.com (~$10/year)
+
+[ ] Monitor your app
+    → Dashboard → Logs tab
+    → Dashboard → Metrics tab
+
+IMPORTANT NOTES
+─────────────────────────────────────────────────────────────────
+⚠️  FREE TIER: App sleeps after 15 min inactivity
+⚠️  FREE TIER: Uploaded files are deleted on restart
+⚠️  NO AUTHENTICATION: Anyone can access your app
+⚠️  NOT FOR PRODUCTION: Don't use with real sensitive data
+
+💡 TIP: For always-on + persistent storage:
+   → Upgrade to Starter ($7/mo) + Add disk ($1/mo) = $8/mo total
+
+TROUBLESHOOTING
+─────────────────────────────────────────────────────────────────
+❌ Build fails?
+   → Check logs in Render dashboard
+   → Verify package.json is correct
+   
+❌ App doesn't respond?
+   → Free tier: Wait 30-60 sec for wake-up
+   → Check logs for errors
+   
+❌ Files not persisting?
+   → Expected on free tier
+   → Add persistent disk (paid plan only)
+
+SUPPORT
+─────────────────────────────────────────────────────────────────
+📖 Full guide: See RENDER_DEPLOY.md
+🌐 Render docs: https://render.com/docs
+💬 Support: support@render.com
+
+═══════════════════════════════════════════════════════════════
+
+Your app will be live at:
+https://equis-sar-mvp-xxxx.onrender.com
+
+Good luck! 🚀
