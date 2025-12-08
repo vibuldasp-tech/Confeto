@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EQUIS SAR MVP - Upload Document</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>EQUIS SAR MVP</h1>
+      <p class="subtitle">Upload your SAR document to create a workspace</p>
+    </header>
+
+    <div class="privacy-warning">
+      <strong>⚠️ Privacy Notice:</strong>
+      <p>
+        This is a development MVP. Workspaces are <strong>public by link</strong> and accessible to anyone with the workspace ID. 
+        <strong>Do NOT upload documents containing sensitive or personally identifiable information (PII).</strong>
+        All files are stored locally on this server without authentication or encryption.
+      </p>
+    </div>
+
+    <div class="upload-section">
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="documentFile">Select SAR Document (.docx or .doc only)</label>
+          <input 
+            type="file" 
+            id="documentFile" 
+            name="document" 
+            accept=".docx,.doc" 
+            required
+          >
+          <p class="file-hint">Only .docx and .doc files are accepted</p>
+        </div>
+
+        <button type="submit" id="uploadBtn" class="btn-primary">
+          Upload Document
+        </button>
+      </form>
+
+      <div id="uploadStatus" class="status-message" style="display: none;"></div>
+      <div id="uploadProgress" class="progress-bar" style="display: none;">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>How it works:</h3>
+      <ol>
+        <li>Upload your SAR document (.docx or .doc format)</li>
+        <li>The system extracts and analyzes the document structure</li>
+        <li>Sections are automatically detected based on headings and formatting</li>
+        <li>You'll receive a unique workspace link to view and edit your document</li>
+        <li>Changes are saved to your workspace automatically</li>
+      </ol>
+    </div>
+
+    <footer>
+      <p>EQUIS SAR MVP v1.0 - Development Build</p>
+      <p class="warning-text">Not for production use with sensitive data</p>
+    </footer>
+  </div>
+
+  <script>
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const fileInput = document.getElementById('documentFile');
+
+    // Client-side validation
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const ext = file.name.toLowerCase().split('.').pop();
+        if (ext !== 'docx' && ext !== 'doc') {
+          alert('Only .docx and .doc files are allowed');
+          fileInput.value = '';
+        }
+      }
+    });
+
+    uploadForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('documentFile');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        showStatus('Please select a file', 'error');
+        return;
+      }
+
+      // Additional client-side validation
+      const ext = file.name.toLowerCase().split('.').pop();
+      if (ext !== 'docx' && ext !== 'doc') {
+        showStatus('Only .docx and .doc files are allowed', 'error');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('document', file);
+
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = 'Uploading...';
+      uploadProgress.style.display = 'block';
+      uploadStatus.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          showStatus('Document uploaded successfully! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = `/workspace/${data.workspaceId}`;
+          }, 1000);
+        } else {
+          showStatus(`Error: ${data.error || 'Upload failed'}`, 'error');
+          uploadBtn.disabled = false;
+          uploadBtn.textContent = 'Upload Document';
+        }
+      } catch (error) {
+        showStatus(`Error: ${error.message}`, 'error');
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = 'Upload Document';
+      } finally {
+        uploadProgress.style.display = 'none';
+      }
+    });
+
+    function showStatus(message, type) {
+      uploadStatus.textContent = message;
+      uploadStatus.className = `status-message ${type}`;
+      uploadStatus.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+uploads/
+*.md
+test-*.js
+generate-*.py
+Test_*.docx
+test-app.sh
