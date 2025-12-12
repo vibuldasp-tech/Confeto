@@ -47,6 +47,13 @@ examples/
 └── reference_doc3_governance...txt
 ```
 
+**📄 Supports Your Formats:**
+- ✅ **PDF** (.pdf) - Your uploaded documents
+- ✅ **Word** (.docx) - Microsoft Word files
+- ✅ Text (.txt) & Markdown (.md) - Also supported
+
+See **WORD_PDF_GUIDE.md** for detailed PDF/Word documentation.
+
 ### 📚 Documentation Available
 
 | File | Purpose | Read When |

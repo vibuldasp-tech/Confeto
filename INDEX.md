@@ -33,6 +33,7 @@
 |----------|---------|--------------|
 | **START_HERE.md** | Quick orientation | First thing |
 | **GETTING_STARTED.md** | Detailed walkthrough | Setting up |
+| **WORD_PDF_GUIDE.md** | PDF & Word documents | Using PDF/Word files ⭐ |
 | **QUICKSTART.md** | 5-minute setup | Speed setup |
 | **demo.sh** | Interactive demo | Visual learner |
 
