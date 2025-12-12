@@ -1,0 +1,66 @@
+Governance and Compliance Requirements for Annual Reports
+
+This document specifies the governance, compliance, and corporate responsibility information required in annual reports.
+
+Required Governance Information:
+
+1. Corporate Governance Structure:
+   - Board of Directors composition and biographies
+   - Board committees (Audit, Compensation, Nomination)
+   - Corporate governance policies and practices
+   - Director independence and diversity
+   - Board meeting attendance records
+
+2. Executive Leadership:
+   - Executive team members and their roles
+   - Management organizational structure
+   - Executive compensation and incentive programs
+   - Succession planning framework
+
+3. Risk Management:
+   - Enterprise risk management framework
+   - Key risk factors and their potential impact
+   - Risk mitigation strategies
+   - Insurance coverage
+   - Business continuity and disaster recovery plans
+
+4. Compliance and Legal:
+   - Regulatory compliance status
+   - Legal proceedings and litigation
+   - Intellectual property portfolio
+   - Data privacy and protection compliance (GDPR, etc.)
+   - Anti-corruption and ethics policies
+
+5. Corporate Social Responsibility (CSR):
+   - Environmental sustainability initiatives
+   - Carbon footprint and emissions data
+   - Social impact programs
+   - Community engagement activities
+   - Diversity, equity, and inclusion (DEI) metrics
+
+6. Human Resources and Employee Information:
+   - Total employee count by department/location
+   - Employee turnover rates
+   - Training and development programs
+   - Employee satisfaction and engagement scores
+   - Workplace safety metrics and incidents
+   - Labor relations and union status
+
+7. Stakeholder Communications:
+   - Shareholder rights and voting procedures
+   - Dividend policy and distributions
+   - Investor relations activities
+   - Communication channels for stakeholders
+   - Annual general meeting (AGM) information
+
+8. Ethics and Integrity:
+   - Code of conduct and ethics
+   - Whistleblower policies
+   - Conflicts of interest management
+   - Political contributions and lobbying activities
+
+9. Audit and Internal Controls:
+   - External auditor information
+   - Audit committee activities
+   - Internal control systems
+   - Material weaknesses or deficiencies

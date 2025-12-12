@@ -1,0 +1,47 @@
+Financial Reporting Requirements for Annual Reports
+
+This document outlines the mandatory financial information that must be included in all annual reports.
+
+Required Financial Metrics:
+
+1. Revenue Information:
+   - Total revenue for the fiscal year
+   - Revenue breakdown by business segment or product line
+   - Year-over-year revenue growth percentage
+   - Revenue per customer or geographic region
+
+2. Profitability Metrics:
+   - Gross profit and gross profit margin
+   - Operating profit/EBITDA
+   - Net profit after taxes
+   - Earnings per share (EPS)
+
+3. Balance Sheet Information:
+   - Total assets and asset breakdown
+   - Total liabilities and debt levels
+   - Shareholder equity
+   - Cash and cash equivalents
+
+4. Cash Flow:
+   - Operating cash flow
+   - Investing cash flow
+   - Financing cash flow
+   - Free cash flow
+
+5. Financial Ratios:
+   - Return on equity (ROE)
+   - Return on assets (ROA)
+   - Debt-to-equity ratio
+   - Current ratio and quick ratio
+
+6. Cost Analysis:
+   - Cost of goods sold (COGS)
+   - Operating expenses breakdown
+   - R&D expenses
+   - Sales and marketing expenses
+
+7. Future Financial Outlook:
+   - Revenue projections for next fiscal year
+   - Expected profit margins
+   - Planned capital expenditures
+   - Financial risks and mitigation strategies
