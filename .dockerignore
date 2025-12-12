@@ -1,0 +1,54 @@
+# Docker ignore file
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache
+.coverage
+htmlcov/
+
+# Documentation (not needed in container)
+*.md
+!README.md
+
+# Environment files (passed via docker-compose)
+.env
+.env.example
+
+# Uploads (mounted as volume)
+web/uploads/*
+!web/uploads/.gitkeep
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+
+# Node modules (if any)
+node_modules/
+
+# Examples (not needed in production)
+examples/
