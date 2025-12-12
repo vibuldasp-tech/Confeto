@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Gap Analysis Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Document Gap Analysis Tool</h1>
+            <p class="subtitle">Compare your document against requirements to identify gaps</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Upload Form -->
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="upload-section">
+                    <h2>1. Upload Your Document</h2>
+                    <p class="help-text">The document you want to analyze (PDF or Word)</p>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="userDocument" name="user_document" accept=".pdf,.docx" required>
+                        <label for="userDocument" class="file-label">
+                            <span class="file-icon">📄</span>
+                            <span class="file-text">Choose Document (PDF/DOCX)</span>
+                        </label>
+                        <div id="userFileName" class="file-name"></div>
+                    </div>
+                </div>
+
+                <div class="upload-section">
+                    <h2>2. Upload Reference Documents</h2>
+                    <p class="help-text">Documents that define what should be present (2-4 recommended)</p>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="referenceDocuments" name="reference_documents" accept=".pdf,.docx,.txt,.md" multiple required>
+                        <label for="referenceDocuments" class="file-label">
+                            <span class="file-icon">📑</span>
+                            <span class="file-text">Choose Reference Documents</span>
+                        </label>
+                        <div id="refFileNames" class="file-name"></div>
+                    </div>
+                </div>
+
+                <div class="button-wrapper">
+                    <button type="submit" id="analyzeBtn" class="btn-primary">
+                        🔍 Analyze Documents
+                    </button>
+                </div>
+            </form>
+
+            <!-- Progress Indicator -->
+            <div id="progress" class="progress-section" style="display: none;">
+                <div class="spinner"></div>
+                <p id="progressText">Analyzing documents...</p>
+                <p class="progress-subtext">This may take 30-60 seconds</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <!-- Results Section -->
+            <div id="results" class="results-section" style="display: none;">
+                <h2>📊 Analysis Results</h2>
+                
+                <div class="summary-card">
+                    <div class="coverage-score">
+                        <span class="score-label">Coverage Score</span>
+                        <span id="coverageScore" class="score-value">--</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item present">
+                            <span class="stat-icon">✅</span>
+                            <span class="stat-label">Present</span>
+                            <span id="presentCount" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item partial">
+                            <span class="stat-icon">⚠️</span>
+                            <span class="stat-label">Partial</span>
+                            <span id="partialCount" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item absent">
+                            <span class="stat-icon">❌</span>
+                            <span class="stat-label">Absent</span>
+                            <span id="absentCount" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-text">
+                    <h3>Summary</h3>
+                    <pre id="summaryText"></pre>
+                </div>
+
+                <div class="gaps-section">
+                    <h3>Detailed Findings</h3>
+                    
+                    <!-- Present Items -->
+                    <div class="gap-category">
+                        <h4 class="category-header present-header">
+                            <span>✅ Present Items</span>
+                            <span id="presentBadge" class="badge">0</span>
+                        </h4>
+                        <div id="presentItems" class="gap-items"></div>
+                    </div>
+
+                    <!-- Partial Items -->
+                    <div class="gap-category">
+                        <h4 class="category-header partial-header">
+                            <span>⚠️ Partially Addressed</span>
+                            <span id="partialBadge" class="badge">0</span>
+                        </h4>
+                        <div id="partialItems" class="gap-items"></div>
+                    </div>
+
+                    <!-- Absent Items -->
+                    <div class="gap-category">
+                        <h4 class="category-header absent-header">
+                            <span>❌ Missing Items</span>
+                            <span id="absentBadge" class="badge">0</span>
+                        </h4>
+                        <div id="absentItems" class="gap-items"></div>
+                    </div>
+                </div>
+
+                <div class="download-section">
+                    <h3>Download Reports</h3>
+                    <div class="download-buttons">
+                        <a id="downloadMarkdown" href="#" class="btn-download">
+                            📄 Download Markdown
+                        </a>
+                        <a id="downloadHtml" href="#" class="btn-download">
+                            🌐 Download HTML
+                        </a>
+                        <a id="downloadJson" href="#" class="btn-download">
+                            📊 Download JSON
+                        </a>
+                    </div>
+                </div>
+
+                <div class="button-wrapper">
+                    <button id="newAnalysisBtn" class="btn-secondary">
+                        🔄 New Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Powered by AI • Supports PDF & Word documents</p>
+            <p class="footer-links">
+                <a href="https://github.com/yourusername/document-gap-analyzer" target="_blank">Documentation</a> •
+                <a href="#" onclick="alert('Document Gap Analysis Tool v1.0')">About</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
