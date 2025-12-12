@@ -1,0 +1,62 @@
+#!/bin/bash
+# Example showing PDF and Word document analysis
+
+echo "================================================"
+echo "  PDF and Word Document Analysis Examples"
+echo "================================================"
+echo ""
+
+echo "✅ The system fully supports PDF and Word documents!"
+echo ""
+
+echo "Example 1: Analyze a PDF user document"
+echo "---------------------------------------"
+echo "python3 gap_analyzer.py analyze \\"
+echo "  my_annual_report.pdf \\"
+echo "  financial_requirements.pdf \\"
+echo "  operational_requirements.pdf \\"
+echo "  governance_requirements.pdf"
+echo ""
+
+echo "Example 2: Analyze a Word user document"
+echo "----------------------------------------"
+echo "python3 gap_analyzer.py analyze \\"
+echo "  my_proposal.docx \\"
+echo "  client_rfp.pdf \\"
+echo "  technical_specs.docx \\"
+echo "  requirements.txt"
+echo ""
+
+echo "Example 3: Check PDF before analysis"
+echo "-------------------------------------"
+echo "python3 gap_analyzer.py info my_document.pdf"
+echo ""
+echo "This shows:"
+echo "  - File size"
+echo "  - Page count"
+echo "  - Word count"
+echo "  - Content preview"
+echo ""
+
+echo "Example 4: Check Word document"
+echo "------------------------------"
+echo "python3 gap_analyzer.py info my_document.docx"
+echo ""
+
+echo "Example 5: Mixed formats (PDF + Word)"
+echo "--------------------------------------"
+echo "python3 gap_analyzer.py analyze \\"
+echo "  user_doc.pdf \\"
+echo "  ref1.pdf \\"
+echo "  ref2.docx \\"
+echo "  ref3.txt"
+echo ""
+
+echo "================================================"
+echo "See WORD_PDF_GUIDE.md for complete documentation"
+echo "================================================"
+echo ""
+
+echo "Quick test with example documents:"
+echo "python3 gap_analyzer.py info examples/user_document.txt"
+echo ""

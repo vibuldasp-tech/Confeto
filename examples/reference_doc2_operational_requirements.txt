@@ -1,0 +1,51 @@
+Operational Reporting Requirements for Annual Reports
+
+All annual reports must include comprehensive operational metrics and achievements.
+
+Required Operational Information:
+
+1. Production and Operations:
+   - Manufacturing capacity and utilization rates
+   - Production volume and output
+   - Quality control metrics (defect rates, rejection rates)
+   - Supply chain performance indicators
+   - Inventory management metrics
+
+2. Customer Metrics:
+   - Total customer count and active customers
+   - Customer acquisition cost (CAC)
+   - Customer lifetime value (CLV)
+   - Customer retention and churn rates
+   - Net Promoter Score (NPS) or customer satisfaction scores
+   - Customer demographics and segmentation
+
+3. Market Presence:
+   - Market share by segment
+   - Geographic market distribution
+   - Competitive positioning
+   - New market entries and expansions
+
+4. Product and Service Portfolio:
+   - Product line descriptions
+   - New product launches
+   - Product performance metrics (sales by product)
+   - Product development pipeline
+   - Service level agreements (SLA) performance
+
+5. Technology and Infrastructure:
+   - IT systems and digital transformation initiatives
+   - Technology investments
+   - Cybersecurity measures and incidents
+   - Data management and analytics capabilities
+
+6. Logistics and Distribution:
+   - Delivery performance metrics
+   - Distribution channel analysis
+   - Warehouse and fulfillment operations
+   - Transportation costs and efficiency
+
+7. Partnerships and Collaborations:
+   - Strategic partnerships
+   - Vendor relationships
+   - Joint ventures or collaborations
+   - Supplier diversity programs
